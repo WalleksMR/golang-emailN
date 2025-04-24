@@ -2,6 +2,7 @@ package campaign
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -30,3 +31,13 @@ func Test_NewCampaign_IDIsNotNil(t *testing.T) {
 	assert.NotNil(campaign.ID)
 }
 
+func Test_NewCampaign_CreatedOnIsNotNil(t *testing.T) {
+	assert := assert.New(t)
+	name := "Campaign X"
+	content := "Body"
+	contacts := []string{"email@e.com", "email2@e.com"}
+	now := time.Now().Add(-time.Minute)
+	campaign := NewCampaign(name, content, contacts)
+
+	assert.Greater(campaign.CreatedOn, now)
+}
