@@ -18,3 +18,15 @@ func Test_NewCampaign_CreateCampaign(t *testing.T) {
 	assert.Equal(campaign.Content, content)
 	assert.Equal(len(campaign.Contacts), len(contacts))
 }
+
+func Test_NewCampaign_IDIsNotNil(t *testing.T) {
+	assert := assert.New(t)
+	name := "Campaign X"
+	content := "Body"
+	contacts := []string{"email@e.com", "email2@e.com"}
+
+	campaign := NewCampaign(name, content, contacts)
+
+	assert.NotNil(campaign.ID)
+}
+
