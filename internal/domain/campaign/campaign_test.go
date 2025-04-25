@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	name     = "Campaign X"
-	content  = "Body"
+	name     = "any name"
+	content  = "any content"
 	contacts = []string{"email@e.com", "email2@e.com"}
 )
 
@@ -45,7 +45,7 @@ func Test_NewCampaign_MustValidateName(t *testing.T) {
 
 	_, err := NewCampaign("", content, contacts)
 
-	assert.Equal(err.Error(), "name is required")
+	assert.Equal("Name deve ter pelo menos 5 caracteres", err.Error())
 }
 
 func Test_NewCampaign_MustValidateContent(t *testing.T) {
@@ -53,7 +53,7 @@ func Test_NewCampaign_MustValidateContent(t *testing.T) {
 
 	_, err := NewCampaign(name, "", contacts)
 
-	assert.Equal(err.Error(), "content is required")
+	assert.Equal("Content deve ter pelo menos 5 caracteres", err.Error())
 }
 
 func Test_NewCampaign_MustValidateContacts(t *testing.T) {
@@ -61,5 +61,5 @@ func Test_NewCampaign_MustValidateContacts(t *testing.T) {
 
 	_, err := NewCampaign(name, content, nil)
 
-	assert.Equal(err.Error(), "contacts is required")
+	assert.Equal("Contacts deve conter pelo menos 1 item", err.Error())
 }
