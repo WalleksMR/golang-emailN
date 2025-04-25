@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jaswdr/faker/v2"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -42,7 +43,6 @@ func Test_NewCampaign_CreatedOnMustBeNow(t *testing.T) {
 
 func Test_NewCampaign_MustValidateName(t *testing.T) {
 	assert := assert.New(t)
-
 	_, err := NewCampaign("", content, contacts)
 
 	assert.Equal("Name deve ter pelo menos 5 caracteres", err.Error())
@@ -62,4 +62,12 @@ func Test_NewCampaign_MustValidateContacts(t *testing.T) {
 	_, err := NewCampaign(name, content, nil)
 
 	assert.Equal("Contacts deve conter pelo menos 1 item", err.Error())
+}
+
+func Test_NewCampaign_MustBeName24Caracters(t *testing.T) {
+	assert := assert.New(t)
+	fake := faker.New()
+	_, err := NewCampaign(fake.Lorem().Text(25), content, contacts)
+
+	assert.Equal("Name deve ter no máximo 24 caracteres", err.Error())
 }
