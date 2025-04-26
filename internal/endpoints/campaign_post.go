@@ -13,5 +13,9 @@ func (h *Handler) CampaignPost(w http.ResponseWriter, r *http.Request) (interfac
 
 	id, err := h.CampaignService.Create(request)
 
-	return map[string]string{"id": id}, 201, err
+	if err != nil {
+		return nil, 400, err
+	}
+
+	return map[string]string{"id": id}, 201, nil
 }
