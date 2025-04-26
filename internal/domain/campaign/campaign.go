@@ -2,6 +2,8 @@ package campaign
 
 import (
 	"errors"
+	"reflect"
+	"strings"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -38,6 +40,15 @@ func NewCampaign(name string, content string, emails []string) (*Campaign, error
 	}
 
 	validate := validator.New()
+
+	// register function to get tag name from json tags.
+	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
+		name := strings.SplitN(fld.Tag.Get("json"), ",", 2)[0]
+		if name == "-" {
+			return ""
+		}
+		return name
+	})
 
 	TranslateValidator := translations.Register(validate)
 	err := validate.Struct(campaign)
