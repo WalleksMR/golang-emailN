@@ -3,9 +3,12 @@
 
 POST {{BASE}}/campaigns
 Content-Type: application/json
-
 {
   "name": "Teste campanha",
   "content": "any content",
   "emails": ["teste@email.com"]
 }
+
+###
+GET {{BASE}}/campaigns
+Content-Type: application/json
