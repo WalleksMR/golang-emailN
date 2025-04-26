@@ -16,6 +16,7 @@ type Status string
 
 var (
 	StatusPendign Status = "Pending"
+	StatusStarted Status = "Started"
 	StatusDone    Status = "Done"
 	StatusFailed  Status = "Failed"
 )
