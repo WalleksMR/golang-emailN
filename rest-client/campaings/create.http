@@ -1,0 +1,11 @@
+### Variables 
+@BASE = http://localhost:3000
+
+POST {{BASE}}/campaigns
+Content-Type: application/json
+
+{
+  "name": "Teste campanha",
+  "content": "any content",
+  "emails": ["teste@email.com"]
+}
