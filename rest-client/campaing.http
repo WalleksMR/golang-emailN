@@ -1,8 +1,10 @@
 ### Variables 
 @BASE = http://localhost:3000
 
+### POST
 POST {{BASE}}/campaigns
 Content-Type: application/json
+
 {
   "name": "Teste campanha",
   "content": "any content",
@@ -11,4 +13,4 @@ Content-Type: application/json
 
 ###
 GET {{BASE}}/campaigns
-Content-Type: application/json
+
