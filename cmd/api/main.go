@@ -1,16 +1,13 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/render"
-	"github.com/walleksmr/golang-emailn/internal/contract"
 	"github.com/walleksmr/golang-emailn/internal/domain/campaign"
-	"github.com/walleksmr/golang-emailn/internal/excptions"
+	"github.com/walleksmr/golang-emailn/internal/endpoints"
 	"github.com/walleksmr/golang-emailn/internal/infra/database"
 )
 
@@ -23,29 +20,11 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	repository := database.CampaignRepository{}
-	service := campaign.Service{Repository: &repository}
+	campaignService := campaign.Service{Repository: &repository}
+	handler := endpoints.Handler{CampaignService: campaignService}
 
-	r.Post("/campaigns", func(w http.ResponseWriter, r *http.Request) {
-		var request contract.NewCampaign
-		err := render.DecodeJSON(r.Body, &request)
-		if err != nil {
-			render.Status(r, 400)
-			render.JSON(w, r, map[string]string{"error": err.Error()})
-			return
-		}
-		id, err := service.Create(request)
-		if err != nil {
-			status := 400
-			if errors.Is(err, excptions.ErrInternal) {
-				status = 500
-			}
-			render.Status(r, status)
-			render.JSON(w, r, map[string]string{"error": err.Error()})
-			return
-		}
-		render.Status(r, 201)
-		render.JSON(w, r, map[string]string{"id": id})
-	})
+	r.Post("/campaigns", handler.CampaignPost)
+	r.Get("/campaigns", handler.CampaignGet)
 
 	fmt.Println("API is running on port 3000")
 	http.ListenAndServe(":3000", r)
