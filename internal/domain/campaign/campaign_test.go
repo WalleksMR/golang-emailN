@@ -20,6 +20,7 @@ func Test_NewCampaign_CreateCampaign(t *testing.T) {
 	campaign, _ := NewCampaign(name, content, contacts)
 
 	assert.Equal(campaign.Name, name)
+	assert.Equal(StatusPendign, campaign.Status)
 	assert.Equal(campaign.Content, content)
 	assert.Equal(len(campaign.Contacts), len(contacts))
 }
