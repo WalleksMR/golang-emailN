@@ -5,6 +5,11 @@ import (
 	"github.com/walleksmr/golang-emailn/internal/excptions"
 )
 
+type IService interface {
+	Create(input contract.NewCampaign) (string, error)
+	ListAll() ([]Campaign, error)
+}
+
 type Service struct {
 	Repository Repository
 }
@@ -21,4 +26,14 @@ func (s *Service) Create(input contract.NewCampaign) (string, error) {
 	}
 
 	return campaign.ID, nil
+}
+
+func (s *Service) ListAll() ([]Campaign, error) {
+	campaigns, err := s.Repository.ListAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return campaigns, nil
 }

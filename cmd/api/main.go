@@ -21,7 +21,7 @@ func main() {
 
 	repository := database.CampaignRepository{}
 	campaignService := campaign.Service{Repository: &repository}
-	handler := endpoints.Handler{CampaignService: campaignService}
+	handler := endpoints.Handler{CampaignService: &campaignService}
 	r.Post("/campaigns", endpoints.HandlerError(handler.CampaignPost))
 	r.Get("/campaigns", endpoints.HandlerError(handler.CampaignGet))
 
