@@ -22,17 +22,17 @@ var (
 )
 
 type Contact struct {
-	ID         string
-	Email      string `validate:"email"`
-	CampaignId string
+	ID         string `gorm:"size:50"`
+	Email      string `validate:"email" gorm:"size:120"`
+	CampaignId string `gorm:"size:50"`
 }
 
 type Campaign struct {
-	ID        string    `validate:"required"`
-	Name      string    `validate:"min=5,max=24"`
-	Status    Status    `validate:"required"`
+	ID        string    `validate:"required" gorm:"size:50"`
+	Name      string    `validate:"min=5,max=24" gorm:"size:120"`
+	Status    Status    `validate:"required" gorm:"size:24"`
 	CreatedOn time.Time `validate:"required"`
-	Content   string    `validate:"min=5,max=1024"`
+	Content   string    `validate:"min=5,max=1024" gorm:"size:1024"`
 	Contacts  []Contact `validate:"min=1,dive"`
 }
 
