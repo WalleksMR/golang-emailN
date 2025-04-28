@@ -3,6 +3,7 @@ package endpoints
 import (
 	"errors"
 	"net/http"
+	"reflect"
 
 	"github.com/go-chi/render"
 	"github.com/walleksmr/golang-emailn/internal/excptions"
@@ -26,7 +27,9 @@ func HandlerError(endpointFunc EndpointFunc) http.HandlerFunc {
 		}
 
 		render.Status(r, status)
-		if obj != nil {
+		v := reflect.ValueOf(obj)
+
+		if obj != nil && !v.IsNil() {
 			render.JSON(w, r, obj)
 		}
 	})
