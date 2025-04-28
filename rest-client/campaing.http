@@ -14,3 +14,6 @@ Content-Type: application/json
 ###
 GET {{BASE}}/campaigns
 
+###
+GET {{BASE}}/campaigns/d06lvous2kkuo6g7jvoo
+
