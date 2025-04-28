@@ -12,6 +12,7 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/walleksmr/golang-emailn/internal/contract"
 	"github.com/walleksmr/golang-emailn/internal/domain/campaign"
+	dto "github.com/walleksmr/golang-emailn/internal/domain/campaign/dto"
 )
 
 type serviceMock struct {
@@ -26,6 +27,11 @@ func (s *serviceMock) Create(input contract.NewCampaign) (string, error) {
 func (s *serviceMock) ListAll() ([]campaign.Campaign, error) {
 	args := s.Called()
 	return nil, args.Error(1)
+}
+
+func (s *serviceMock) GetById(id string) (*dto.GetOneOutput, error) {
+	args := s.Called(id)
+	return args.Get(0).(*dto.GetOneOutput), args.Error(1)
 }
 
 func Test_CampaignPost_should_save_new_campaign(t *testing.T) {

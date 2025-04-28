@@ -2,12 +2,14 @@ package campaign
 
 import (
 	"github.com/walleksmr/golang-emailn/internal/contract"
+	"github.com/walleksmr/golang-emailn/internal/domain/campaign/dto"
 	"github.com/walleksmr/golang-emailn/internal/excptions"
 )
 
 type IService interface {
 	Create(input contract.NewCampaign) (string, error)
 	ListAll() ([]Campaign, error)
+	GetById(id string) (*dto.GetOneOutput, error)
 }
 
 type Service struct {
@@ -36,4 +38,23 @@ func (s *Service) ListAll() ([]Campaign, error) {
 	}
 
 	return campaigns, nil
+}
+
+func (s *Service) GetById(id string) (*dto.GetOneOutput, error) {
+	campaign, err := s.Repository.GetById(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if campaign == nil {
+		return nil, nil
+	}
+
+	return &dto.GetOneOutput{
+		Id:      campaign.ID,
+		Name:    campaign.Name,
+		Status:  string(campaign.Status),
+		Content: campaign.Content,
+	}, nil
 }

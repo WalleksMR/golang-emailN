@@ -29,7 +29,13 @@ func (r *campaignRepositoryMock) Save(campaign *Campaign) error {
 }
 
 func (r *campaignRepositoryMock) ListAll() ([]Campaign, error) {
-	return nil, nil
+	args := r.Called()
+	return args.Get(0).([]Campaign), args.Error(1)
+}
+
+func (r *campaignRepositoryMock) GetById(id string) (*Campaign, error) {
+	args := r.Called(id)
+	return args.Get(0).(*Campaign), args.Error(1)
 }
 
 func Test_Create_Campaign(t *testing.T) {
