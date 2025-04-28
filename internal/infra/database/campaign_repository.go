@@ -1,6 +1,8 @@
 package database
 
 import (
+	"errors"
+
 	"github.com/walleksmr/golang-emailn/internal/domain/campaign"
 	"gorm.io/gorm"
 )
@@ -22,9 +24,13 @@ func (c *CampaignRepository) ListAll() ([]campaign.Campaign, error) {
 }
 
 func (c *CampaignRepository) GetById(id string) (*campaign.Campaign, error) {
-	var campaign *campaign.Campaign
+	var result *campaign.Campaign
 
-	result := c.Db.First(&campaign, id)
+	query := c.Db.Model(campaign.Campaign{}).First(&result, "id = ?", id)
 
-	return campaign, result.Error
+	if result.ID == "" {
+		return nil, errors.New("campaign not found")
+	}
+
+	return result, query.Error
 }
