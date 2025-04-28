@@ -6,8 +6,7 @@ import (
 )
 
 type CampaignRepository struct {
-	campaigns []campaign.Campaign
-	Db        *gorm.DB
+	Db *gorm.DB
 }
 
 func (c *CampaignRepository) Save(campaign *campaign.Campaign) error {
@@ -19,7 +18,7 @@ func (c *CampaignRepository) ListAll() ([]campaign.Campaign, error) {
 	var campaigns []campaign.Campaign
 	result := c.Db.Find(&campaigns)
 
-	return c.campaigns, result.Error
+	return campaigns, result.Error
 }
 
 func (c *CampaignRepository) GetById(id string) (*campaign.Campaign, error) {
