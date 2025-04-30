@@ -38,6 +38,11 @@ func (r *campaignRepositoryMock) GetById(id string) (*Campaign, error) {
 	return args.Get(0).(*Campaign), args.Error(1)
 }
 
+func (r *campaignRepositoryMock) Update(input contract.CampaingUpateInput) error {
+	args := r.Called(input)
+	return args.Error(0)
+}
+
 func Test_Create_Campaign(t *testing.T) {
 	assert := assert.New(t)
 	repositoryMock := new(campaignRepositoryMock)

@@ -1,7 +1,7 @@
 ### Variables 
 @BASE = http://localhost:3000
 
-### POST
+### Create
 POST {{BASE}}/campaigns
 Content-Type: application/json
 
@@ -11,9 +11,16 @@ Content-Type: application/json
   "emails": ["teste@email.com"]
 }
 
-###
+### Get Many
 GET {{BASE}}/campaigns
 
-###
-GET {{BASE}}/campaigns/d06lvous2kkuo6g7jvoo
+### Get One
+GET {{BASE}}/campaigns/d08mt0es2kkk178l1d20
+
+### Update
+PUT {{BASE}}/campaigns/d08mt0es2kkk178l1d20
+
+{
+  "name": "Wace"
+}
 

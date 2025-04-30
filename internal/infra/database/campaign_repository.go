@@ -3,6 +3,7 @@ package database
 import (
 	"errors"
 
+	"github.com/walleksmr/golang-emailn/internal/contract"
 	"github.com/walleksmr/golang-emailn/internal/domain/campaign"
 	"gorm.io/gorm"
 )
@@ -33,4 +34,30 @@ func (c *CampaignRepository) GetById(id string) (*campaign.Campaign, error) {
 	}
 
 	return result, query.Error
+}
+
+func (c *CampaignRepository) Update(input contract.CampaingUpateInput) error {
+
+	var campaign *campaign.Campaign
+	c.Db.First(&campaign, "id = ?", input.ID)
+
+	if campaign.ID == "" {
+		return errors.New("campaign not found")
+	}
+
+	if input.Name != nil {
+		campaign.Name = *input.Name
+	}
+
+	if input.Content != nil {
+		campaign.Content = *input.Content
+	}
+
+	if input.Status != nil {
+		campaign.SetStatus(*input.Status)
+	}
+
+	result := c.Db.Save(&campaign)
+
+	return result.Error
 }

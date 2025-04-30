@@ -10,6 +10,7 @@ type IService interface {
 	Create(input contract.NewCampaign) (string, error)
 	ListAll() ([]Campaign, error)
 	GetById(id string) (*dto.GetOneOutput, error)
+	Update(input contract.CampaingUpateInput) error
 }
 
 type Service struct {
@@ -57,4 +58,12 @@ func (s *Service) GetById(id string) (*dto.GetOneOutput, error) {
 		Status:  string(campaign.Status),
 		Content: campaign.Content,
 	}, nil
+}
+
+func (s *Service) Update(input contract.CampaingUpateInput) error {
+	err := s.Repository.Update(input)
+	if err != nil {
+		return err
+	}
+	return nil
 }

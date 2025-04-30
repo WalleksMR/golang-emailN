@@ -17,16 +17,16 @@ func HandlerError(endpointFunc EndpointFunc) http.HandlerFunc {
 
 		if err != nil {
 			if errors.Is(err, excptions.ErrInternal) {
-				render.Status(r, 500)
+				w.WriteHeader(500)
 			} else {
-				render.Status(r, 400)
+				w.WriteHeader(400)
 			}
 
 			render.JSON(w, r, map[string]string{"error": err.Error()})
 			return
 		}
 
-		render.Status(r, status)
+		w.WriteHeader(status)
 		v := reflect.ValueOf(obj)
 
 		if obj != nil && !v.IsNil() {

@@ -28,6 +28,7 @@ func main() {
 	r.Post("/campaigns", endpoints.HandlerError(handler.CampaignPost))
 	r.Get("/campaigns", endpoints.HandlerError(handler.CampaignGet))
 	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaignGetOne))
+	r.Put("/campaigns/{id}", endpoints.HandlerError(handler.CampaignPutUpdate))
 
 	fmt.Println("API is running on port 3000")
 	http.ListenAndServe(":3000", r)

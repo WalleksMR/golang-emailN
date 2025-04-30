@@ -33,6 +33,10 @@ func (s *serviceMock) GetById(id string) (*dto.GetOneOutput, error) {
 	args := s.Called(id)
 	return args.Get(0).(*dto.GetOneOutput), args.Error(1)
 }
+func (s *serviceMock) Update(input contract.CampaingUpateInput) error {
+	args := s.Called(input)
+	return args.Error(0)
+}
 
 func Test_CampaignPost_should_save_new_campaign(t *testing.T) {
 	assert := assert.New(t)
