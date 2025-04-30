@@ -33,7 +33,7 @@ func (s *serviceMock) GetById(id string) (*dto.GetOneOutput, error) {
 	args := s.Called(id)
 	return args.Get(0).(*dto.GetOneOutput), args.Error(1)
 }
-func (s *serviceMock) Update(input contract.CampaingUpateInput) error {
+func (s *serviceMock) Cancel(input contract.CampaingUpateInput) error {
 	args := s.Called(input)
 	return args.Error(0)
 }

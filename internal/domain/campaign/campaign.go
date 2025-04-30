@@ -15,10 +15,11 @@ import (
 type Status string
 
 var (
-	StatusPendign Status = "Pending"
-	StatusStarted Status = "Started"
-	StatusDone    Status = "Done"
-	StatusFailed  Status = "Failed"
+	StatusPendign  Status = "Pending"
+	StatusStarted  Status = "Started"
+	StatusCanceled Status = "Canceled"
+	StatusDone     Status = "Done"
+	StatusFailed   Status = "Failed"
 )
 
 type Contact struct {
@@ -75,19 +76,10 @@ func NewCampaign(name string, content string, emails []string) (*Campaign, error
 	return campaign, nil
 }
 
-func (c *Campaign) SetStatus(status string) error {
-	switch status {
-	case "Pending":
-		c.Status = StatusPendign
-	case "Started":
-		c.Status = StatusStarted
-	case "Done":
-		c.Status = StatusDone
-	case "Failed":
-		c.Status = StatusFailed
-	default:
-		return errors.New("status invalid")
+func (c *Campaign) Cancel() error {
+	if c.Status != StatusPendign {
+		return errors.New("campaign can't be canceled")
 	}
-
+	c.Status = StatusCanceled
 	return nil
 }

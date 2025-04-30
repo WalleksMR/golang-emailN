@@ -17,10 +17,7 @@ GET {{BASE}}/campaigns
 ### Get One
 GET {{BASE}}/campaigns/d08mt0es2kkk178l1d20
 
-### Update
-PUT {{BASE}}/campaigns/d08mt0es2kkk178l1d20
+### Cancel
+PATCH {{BASE}}/campaigns/d08mt0es2kkk178l1d20/cancel
 
-{
-  "name": "Wace"
-}
 

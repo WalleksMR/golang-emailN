@@ -23,12 +23,12 @@ func main() {
 	repository := database.CampaignRepository{
 		Db: db,
 	}
-	campaignService := campaign.Service{Repository: &repository}
+	campaignService := campaign.Service{Repository: &repository, Db: db}
 	handler := endpoints.Handler{CampaignService: &campaignService}
 	r.Post("/campaigns", endpoints.HandlerError(handler.CampaignPost))
 	r.Get("/campaigns", endpoints.HandlerError(handler.CampaignGet))
 	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaignGetOne))
-	r.Put("/campaigns/{id}", endpoints.HandlerError(handler.CampaignPutUpdate))
+	r.Patch("/campaigns/{id}/cancel", endpoints.HandlerError(handler.CampaignPutCancel))
 
 	fmt.Println("API is running on port 3000")
 	http.ListenAndServe(":3000", r)

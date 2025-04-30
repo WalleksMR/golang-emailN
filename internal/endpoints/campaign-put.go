@@ -9,7 +9,7 @@ import (
 	"github.com/walleksmr/golang-emailn/internal/contract"
 )
 
-func (h *Handler) CampaignPutUpdate(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
+func (h *Handler) CampaignPutCancel(w http.ResponseWriter, r *http.Request) (interface{}, int, error) {
 	var request contract.CampaingUpateInput
 	request.ID = chi.URLParam(r, "id")
 	if request.ID == "" {
@@ -18,7 +18,7 @@ func (h *Handler) CampaignPutUpdate(w http.ResponseWriter, r *http.Request) (int
 
 	render.DecodeJSON(r.Body, &request)
 
-	err := h.CampaignService.Update(request)
+	err := h.CampaignService.Cancel(request)
 
 	if err != nil {
 		return nil, 400, err
