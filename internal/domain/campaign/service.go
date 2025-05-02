@@ -57,10 +57,11 @@ func (s *Service) GetById(id string) (*dto.GetOneOutput, error) {
 	}
 
 	return &dto.GetOneOutput{
-		Id:      campaign.ID,
-		Name:    campaign.Name,
-		Status:  string(campaign.Status),
-		Content: campaign.Content,
+		Id:                   campaign.ID,
+		Name:                 campaign.Name,
+		Status:               string(campaign.Status),
+		Content:              campaign.Content,
+		AmountOfEmailsToSend: len(campaign.Contacts),
 	}, nil
 }
 

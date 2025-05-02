@@ -26,7 +26,7 @@ func (c *CampaignRepository) ListAll() ([]campaign.Campaign, error) {
 func (c *CampaignRepository) GetById(id string) (*campaign.Campaign, error) {
 	var result *campaign.Campaign
 
-	query := c.Db.Model(campaign.Campaign{}).First(&result, "id = ?", id)
+	query := c.Db.Model(campaign.Campaign{}).Preload("Contacts").First(&result, "id = ?", id)
 
 	if result.ID == "" {
 		return nil, errors.New("campaign not found")
